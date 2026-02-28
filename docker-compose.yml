@@ -20,7 +20,7 @@ services:
     volumes:
       - ./backend:/app
     ports:
-      - "8000:8000"
+      - "8001:8000"
     depends_on:
       - db
     environment:
@@ -34,7 +34,7 @@ services:
     build: ./frontend
     container_name: react_frontend
     ports:
-      - "3000:3000"
+      - "3001:3000"
     volumes:
       - ./frontend:/app
     depends_on:

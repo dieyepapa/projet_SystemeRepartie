@@ -19,12 +19,24 @@ spec:
 
           ports:
             - containerPort: 8000
+          #env:
+          #  - name: DATABASE_HOST
+          #    value: "postgres"
+          #  - name: DATABASE_USER
+          #    value: "postgres"
+          #  - name: DATABASE_PASSWORD
+          #    value: "postgres"
+          #  - name: DATABASE_NAME
+          #    value: "projetdb"
+
           env:
-            - name: DATABASE_HOST
+            - name: DB_HOST
               value: "postgres"
-            - name: DATABASE_USER
-              value: "postgres"
-            - name: DATABASE_PASSWORD
-              value: "postgres"
-            - name: DATABASE_NAME
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
               value: "projetdb"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_PASSWORD
+              value: "postgres"
