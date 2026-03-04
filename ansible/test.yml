@@ -1,0 +1,8 @@
+- name: Test Ansible
+  hosts: local
+  become: true
+
+  tasks:
+    - name: Afficher un message
+      debug:
+        msg: "Ansible fonctionne correctement 🎉"

@@ -1,0 +1,9 @@
+- name: Automatisation complète du projet
+  hosts: local
+  become: true
+
+  roles:
+    - docker
+    - kubernetes
+    - jenkins
+    - deploy_app

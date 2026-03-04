@@ -1,0 +1,46 @@
+- name: Installer dépendances Jenkins
+  apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+    state: present
+    update_cache: yes
+
+- name: Créer le dossier keyrings pour Jenkins
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Télécharger la clé GPG Jenkins
+  get_url:
+    url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+    dest: /tmp/jenkins.key
+    mode: '0644'
+
+- name: Convertir la clé en format dearmored pour APT
+  command: gpg --dearmor -o /etc/apt/keyrings/jenkins.gpg /tmp/jenkins.key
+  args:
+    creates: /etc/apt/keyrings/jenkins.gpg
+
+- name: Ajouter le dépôt Jenkins
+  copy:
+    dest: /etc/apt/sources.list.d/jenkins.list
+    content: |
+      deb [signed-by=/etc/apt/keyrings/jenkins.gpg] https://pkg.jenkins.io/debian-stable binary/
+
+- name: Mettre à jour APT
+  apt:
+    update_cache: yes
+
+- name: Installer Jenkins
+  apt:
+    name: jenkins
+    state: present
+
+- name: Démarrer et activer Jenkins
+  systemd:
+    name: jenkins
+    state: started
+    enabled: yes
